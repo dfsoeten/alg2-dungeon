@@ -1,5 +1,6 @@
-from game import Game
+import json
+from app.game import Game
 
 # Get the configured dungeon width & height
-with open('config.json') as config:
-    game = Game(config)
+with open('config.json') as file:
+    game = (Game(json.load(file))).start()
