@@ -12,8 +12,8 @@ class Dungeon:
 
     def __init__(self, width, height):
         """
-        Creates a dungeon (graph) with rooms (vertices) equal to the width and height as defined in config.json. Initializes
-        this dungeon with random passages (edges)
+        Creates a dungeon (graph) with rooms (vertices) equal to the width and height as defined in config.json.
+        Initializes this dungeon with random passages (edges)
         """
         self.width = width
         self.height = height
@@ -23,11 +23,11 @@ class Dungeon:
             self.add_room(Room(i))
 
         # Add passages
-        for x in range(self.height):
-            for y in range(self.width):
-                i = y + (self.width * x)
+        for y in range(self.height):
+            for x in range(self.width):
+                i = x + (self.width * y)
 
-                if not x & 1 and y != 0 and y != self.width - 1:
+                if not y & 1 and x != 0 and x != self.width - 1:
                     self.add_passage(i, i - 1)
                     self.add_passage(i, i + 1)
                 self.add_passage(i, i - width)
@@ -65,7 +65,7 @@ class Dungeon:
         :return:
         """
         if from_room in self.rooms and to_room in self.rooms:
-            weight = random.randint(0, 10) if weight == -1 else weight
+            weight = random.randint(0, 9) if weight == -1 else weight
 
             for key, value in self.rooms.items():
                 if key == from_room:
@@ -91,6 +91,11 @@ class Dungeon:
                 self.add_random_passage(1)
 
     def bfs(self, start):
+        """
+
+        :param start:
+        :return:
+        """
         visited, queue = set(), [start]
 
         while queue:
@@ -103,6 +108,13 @@ class Dungeon:
         return visited
 
     def bfs_paths(self, from_room, to_room):
+        """
+        Gets all paths between two rooms (vertices).
+
+        :param from_room:
+        :param to_room:
+        :return:
+        """
         queue = [(from_room, [from_room])]
 
         while queue:
@@ -114,10 +126,28 @@ class Dungeon:
                     queue.append((next_room, path + [next_room]))
 
     def shortest_path(self, start, goal):
+        """
+        Gets the shortest path from one room to another.
+
+        :param start:
+        :param goal:
+        :return:
+        """
         try:
             return next(self.bfs_paths(start, goal))
         except StopIteration:
             return None
+
+    def get_room(self, index):
+        """
+        Get room by index
+
+        :param index:
+        :return:
+        """
+        return self.rooms[index]
+
+
 
 
 

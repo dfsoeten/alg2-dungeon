@@ -10,7 +10,7 @@ class Game:
         self.dungeon = Dungeon(config['dungeon']['width'], config['dungeon']['height'])
 
     def start(self):
-        (Renderer()).debug(self.dungeon)
+        (Renderer()).draw(self.dungeon)
 
 
 
