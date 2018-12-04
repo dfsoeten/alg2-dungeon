@@ -15,11 +15,7 @@ class Renderer:
 
             ]:
                 for x in range(dungeon.width):
-                    room = dungeon.get_room(x + (dungeon.width * y))
-                    next_room = x + (dungeon.width * y) + 1
-                    bottom_room = x + (dungeon.width * y) + dungeon.width
-
-                    print(row(room, next_room, bottom_room), end='')
+                    print(row(dungeon.get_room(x + (dungeon.width * y)), x + (dungeon.width * y) + 1, x + (dungeon.width * y) + dungeon.width), end='')
 
                 print()
 
